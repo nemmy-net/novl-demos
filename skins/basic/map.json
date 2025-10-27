@@ -1,7 +1,7 @@
 {
     "version": 1,
     "pixel": true,
-    "scale": 3,
+    "scale": 1,
     "elements": {
         "dialog": "dlg_aero",
         "choiceMenu": "dlg_paper",
