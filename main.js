@@ -36,6 +36,20 @@ const textEffects = {render: wave}
 game.background("img/bedroom.jpg")
 game.dialog.sound("sound/squeek.wav")
 
+//const composite = Composite(
+//    [300, 600],
+//    [0, 0], "body.png",
+//    [0, 0], "clothes.png",
+//    [0, 0], ImageSequence(0.1, [
+//        "grass1.png", "grass2.png", "grass3.png"
+//    ])
+//)
+const me = game.character("Grass", { image: "img/grass.png", yalign: 0.5, w: 64, h: 64 })
+
+me.show()
+me.say("Hello!")
+more(" Please fill out my simple survey")
+
 let answer = null
 while (answer == null) {
     say("minion or da bob fo today")
@@ -52,6 +66,8 @@ while (answer == null) {
 
 say(answer)
 rest()
+
+me.hide()
 
 undertale()
 more("hallo!")
