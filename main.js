@@ -36,19 +36,73 @@ const textEffects = {render: wave}
 game.background("img/bedroom.jpg")
 game.dialog.sound("sound/squeek.wav")
 
-//const composite = Composite(
-//    [300, 600],
-//    [0, 0], "body.png",
-//    [0, 0], "clothes.png",
-//    [0, 0], ImageSequence(0.1, [
-//        "grass1.png", "grass2.png", "grass3.png"
-//    ])
-//)
-const me = game.character("Grass", { image: "img/grass.png", yalign: 0.5, w: 64, h: 64 })
+let mouthClosed = "img/dude/mouth_closed.png"
+const mouthYapping = {
+    fps: 6,
+    frames: [
+        "img/dude/mouth_open.png",
+        mouthClosed,
+    ]
+}
+const composite = {
+    w: 480, h: 480,
+    yalign: 1,
+    images: {
+        base: "img/dude/base.png",
+        eyes: "img/dude/eyes.png",
+        mouth: mouthClosed,
+    }
+}
 
+function setMouth(image) {
+    mouthClosed = image
+    mouthYapping.frames[1] = image
+    composite.images.mouth = image
+}
+
+const me = game.character("Grass", { image: composite })
+game.event("say", function() {
+    if (game.getSpeaker() == me)
+        composite.images.mouth = mouthYapping
+    else
+        composite.images.mouth = mouthClosed
+})
+
+rest()
 me.show()
-me.say("Hello!")
-more(" Please fill out my simple survey")
+
+// TODO: Automatic delays for punctuation, newlines, and other user-defined patterns.
+me.say("This game engine feels so nice to use\nalready.")
+rest()
+me.say("\nI'm a huge yapper. I like to talk.")
+rest()
+more("\nBut nobody wants to read a block of text.")
+game.wait(0.4)
+more("\nThat's boring!")
+rest()
+composite.images.eyes = "img/dude/eyes_up.png"
+setMouth("img/dude/mouth_grin.png")
+me.say("I'm starting to think ")
+game.wait(0.2)
+more("visual novels can be a\nbetter outlet for my rants.", {color: "#ff0"})
+rest()
+setMouth("img/dude/mouth_closed.png")
+composite.images.eyes = "img/dude/eyes_evil.png"
+me.say("I still have lots of work to do first.")
+rest()
+more("\n\n  Proper scaling for web browsers.", { color: "#f0f" })
+game.wait(0.4)
+more("\nThumbnail support for the site.", { color: "#ef0" })
+game.wait(0.4)
+more("\n  Load engines by version for compatibility.", { color: "#0f0" })
+game.wait(0.4)
+more("\nA tween system for animations.", { color: "#0ef" })
+game.wait(0.4)
+more("\nAnd it all has to be wrapped in a good API.", { color: "#f44" })
+rest()
+
+me.say("Please fill out my simple survey")
+rest()
 
 let answer = null
 while (answer == null) {
@@ -59,8 +113,10 @@ while (answer == null) {
         neither: null,
     })
     if (answer == null) {
+        composite.images.eyes = "img/dude/eyes_evil.png"
         say("no!!!")
         rest()
+        composite.images.eyes = "img/dude/eyes.png"
     }
 }
 

@@ -16,8 +16,28 @@ export interface Letter {
     color: Color
 }
 
+/**
+ * One or more images wrapped into an object with parameters for color, position, and more.
+ * 
+ * It's important to provide the width (`w`) and height (`h`) when multiple images or nested images are used.
+ * The width and height are necessary for positioning and hitboxes, among other things.
+ */
 export interface SpriteProperties {
+    /** One image. If this is a file path then the width and height are the file's width and height by default. */
     image?: SpriteSource,
+    /**
+     * Many images drawn on top of each other from first to last.
+     * Each value can have any name and its image can be swapped out. You might use this to change faces or clothes on a character.
+     */
+    images?: {
+        [key: string]: SpriteSource
+    }
+
+    /** An animation where each sprite is one frame */
+    frames?: SpriteSource[],
+    /** Animation frames per second. (12 by default) */
+    fps?: number,
+
     color?: Color
     x?: number
     y?: number
@@ -29,15 +49,18 @@ export interface SpriteProperties {
     yalign?: number
     xscale?: number
     yscale?: number
+    /** Only draw part of the image inside the rectangle (x,y,w,h) */
+    clip?: boolean
 }
 
-export interface Sprite implements SpriteProperties {
+/** A visible object that can be shown and hidden. It cannot appear multiple times at once unless you make copies of it. */
+export interface Sprite extends SpriteProperties {
     show(): void
     hide(): void
 }
 
 /** This the actual image used in a sprite. This can be an image path or another sprite. */
-export type SpriteSource = string | SpriteProperties;
+export type SpriteSource = string | SpriteProperties
 
 export type TextRender = (frame: Frame, letter: Letter) => void
 
@@ -51,16 +74,13 @@ export interface ChoiceMap {
     [answer: string]: any
 }
 
-export interface Character implements Sprite {
+export interface Character extends Sprite {
     name?: string
-    image?: SpriteSource
-    /** Show character in scene */
-    show(): void
-    /** Hide character */
-    hide(): void
     /** Behaves like `game.dialog.say` and shows the character's name */
     say(text: string, options?: TextEffects): void
 }
+
+export type EventName = "say"
 
 export interface Game {
     dialog: {
@@ -90,9 +110,12 @@ export interface Game {
     /** Wait for a number of seconds. If no seconds are given then wait for any user input. */
     wait(seconds?: number): void
     character(name: string, options?: SpriteProperties): Character
+    event(name: EventName, callback: () => void): void
+    /** The character currently speaking. This is null while the character isn't writing or playing a voice track. */
+    getSpeaker(): Character|null
 }
 
 export declare const game: Game
-export declare const say = game.dialog.say
-export declare const more = game.dialog.more
-export declare const add = game.dialog.add
+export declare const say: typeof game.dialog.say
+export declare const more: typeof game.dialog.more
+export declare const add: typeof game.dialog.add
