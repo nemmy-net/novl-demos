@@ -53,14 +53,14 @@ export interface SpriteProperties {
     clip?: boolean
 }
 
+/** This the actual image used in a sprite. This can be an image path or another sprite. */
+export type SpriteSource = string | SpriteProperties
+
 /** A visible object that can be shown and hidden. It cannot appear multiple times at once unless you make copies of it. */
 export interface Sprite extends SpriteProperties {
     show(): void
     hide(): void
 }
-
-/** This the actual image used in a sprite. This can be an image path or another sprite. */
-export type SpriteSource = string | SpriteProperties
 
 export type TextRender = (frame: Frame, letter: Letter) => void
 
@@ -110,9 +110,11 @@ export interface Game {
     /** Wait for a number of seconds. If no seconds are given then wait for any user input. */
     wait(seconds?: number): void
     character(name: string, options?: SpriteProperties): Character
+    sprite(options?: SpriteProperties): Sprite
     event(name: EventName, callback: () => void): void
     /** The character currently speaking. This is null while the character isn't writing or playing a voice track. */
     getSpeaker(): Character|null
+    screenSize: { w: number, h: number }
 }
 
 export declare const game: Game

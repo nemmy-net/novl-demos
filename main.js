@@ -20,7 +20,7 @@ function bobLeft(frame, letter) {
 }
 
 function rest() {
-    add("  >", { render: bobLeft, color: "#0f08" })
+    add("  >", { render: bobLeft, color: "#0a0" })
     game.wait()
     game.dialog.removeLast(3)
 }
@@ -33,8 +33,8 @@ function undertale() {
 
 const textEffects = {render: wave}
 
-game.background("img/bedroom.jpg")
-game.dialog.sound("sound/squeek.wav")
+game.background("img/mit.png")
+game.dialog.sound("sound/blip.wav")
 
 let mouthClosed = "img/dude/mouth_closed.png"
 const mouthYapping = {
@@ -46,7 +46,6 @@ const mouthYapping = {
 }
 const composite = {
     w: 480, h: 480,
-    yalign: 1,
     images: {
         base: "img/dude/base.png",
         eyes: "img/dude/eyes.png",
@@ -60,7 +59,9 @@ function setMouth(image) {
     composite.images.mouth = image
 }
 
-const me = game.character("Grass", { image: composite })
+const me = game.character("Grass", { image: composite, yalign: 1, x: -100, })
+const grass = game.sprite({ image: "img/grass.png", yalign: 3/4, y: -64 * 1/4, w: 64, h: 64 })
+
 game.event("say", function() {
     if (game.getSpeaker() == me)
         composite.images.mouth = mouthYapping
@@ -68,17 +69,13 @@ game.event("say", function() {
         composite.images.mouth = mouthClosed
 })
 
-rest()
 me.show()
-
-// TODO: Automatic delays for punctuation, newlines, and other user-defined patterns.
-me.say("This game engine feels so nice to use\nalready.")
+grass.show("front")
+// TODO: Automatic delays for punctuation and other user-defined patterns.
 rest()
-me.say("\nI'm a huge yapper. I like to talk.")
+me.say("I'm a huge yapper. I like to talk!")
 rest()
-more("\nBut nobody wants to read a block of text.")
-game.wait(0.4)
-more("\nThat's boring!")
+more("\nOne day I'll get to put my money\nwhere my mouth is.")
 rest()
 composite.images.eyes = "img/dude/eyes_up.png"
 setMouth("img/dude/mouth_grin.png")
