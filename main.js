@@ -61,6 +61,23 @@ function setMouth(image) {
 
 const me = game.character("Grass", { image: composite, yalign: 1, x: -100, })
 const grass = game.sprite({ image: "img/grass.png", yalign: 3/4, y: -64 * 1/4, w: 64, h: 64 })
+const zig = game.sprite({
+    xalign: 1, yalign: 1,
+    x: -8, y: -2,
+    w: 67, h: 23,
+    images: {
+        name: { image: "img/zig_name_xs.png", color: [1,1,1] },
+        logo: { image: "img/zig_logo_xs.png", color: "#f7a41d" },
+    },
+    xscale: 1,
+    yscale: 1,
+})
+//const bkg = game.sprite({w: 640, h: 640, color: [1,0,0]})
+//bkg.show()
+//game.tween(bkg.color, { "0": 1.0, "1": 1.0, "2": 1.0 }, 2)
+
+zig.show()
+game.tween(zig, { xscale: 4, yscale: 4 }, 5, 'outExpo')
 
 game.event("say", function() {
     if (game.getSpeaker() == me)

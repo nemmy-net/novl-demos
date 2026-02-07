@@ -56,9 +56,11 @@ export interface SpriteProperties {
 /** This the actual image used in a sprite. This can be an image path or another sprite. */
 export type SpriteSource = string | SpriteProperties
 
+export type Layer = "back" | "front"
+
 /** A visible object that can be shown and hidden. It cannot appear multiple times at once unless you make copies of it. */
 export interface Sprite extends SpriteProperties {
-    show(): void
+    show(layer?: Layer): void
     hide(): void
 }
 
@@ -115,6 +117,7 @@ export interface Game {
     /** The character currently speaking. This is null while the character isn't writing or playing a voice track. */
     getSpeaker(): Character|null
     screenSize: { w: number, h: number }
+    tween(target: any, newValues: object, seconds: number, easing: ?string): void
 }
 
 export declare const game: Game
