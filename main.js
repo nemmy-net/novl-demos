@@ -1,22 +1,22 @@
 import { game, say, more, add } from "./api.d.ts";
 
 //game.bgm("sound/dos1.mp3")
-function wave(frame, letter) {
-    letter.color = game.rgba(
-        Math.sin(frame.time * 3 + letter.x/50 + letter.y) / 2 + 0.5,
-        Math.sin(frame.time * 3 + letter.x/50 + letter.y + Math.PI * 2/3) / 2 + 0.5,
-        Math.sin(frame.time * 3 + letter.x/50 + letter.y + Math.PI * 4/3) / 2 + 0.5,
+function wave(frame) {
+    frame.color = game.rgba(
+        Math.sin(frame.time * 3 + frame.x/50 + frame.cy) / 2 + 0.5,
+        Math.sin(frame.time * 3 + frame.x/50 + frame.cy + Math.PI * 2/3) / 2 + 0.5,
+        Math.sin(frame.time * 3 + frame.x/50 + frame.cy + Math.PI * 4/3) / 2 + 0.5,
     )
-    letter.y += Math.cos(frame.time * 5 + letter.x/20 + letter.y) * 6
+    frame.y += Math.cos(frame.time * 5 + frame.x/20 + frame.cy) * 6
 }
 
-function shake(frame, letter) {
-    letter.x += Math.random() * 4 - 2
-    letter.y += Math.random() * 4 - 2
+function shake(frame) {
+    frame.x += Math.random() * 4 - 2
+    frame.y += Math.random() * 4 - 2
 }
 
-function bobLeft(frame, letter) {
-    letter.x -= Math.cos(frame.time * 1.5) * 16 / 2
+function bobLeft(frame) {
+    frame.x -= Math.cos(frame.time * 1.5) * 8 + 8
 }
 
 function rest() {
@@ -90,7 +90,7 @@ me.show()
 grass.show("front")
 // TODO: Automatic delays for punctuation and other user-defined patterns.
 rest()
-me.say("I'm a huge yapper. I like to talk!")
+me.say("I'm a huge yapper. I like to talk!", { render: wave })
 rest()
 more("\nOne day I'll get to put my money\nwhere my mouth is.")
 rest()

@@ -117,7 +117,8 @@ export interface Game {
     /** The character currently speaking. This is null while the character isn't writing or playing a voice track. */
     getSpeaker(): Character|null
     screenSize: { w: number, h: number }
-    tween(target: any, newValues: object, seconds: number, easing: ?string): void
+    /** @returns The number of seconds given */
+    tween(target: any, newValues: object, seconds: number, easing: ?string): number
 }
 
 export declare const game: Game
