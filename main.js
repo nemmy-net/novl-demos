@@ -60,7 +60,7 @@ function setMouth(image) {
 }
 
 const me = game.character("Grass", { image: composite, yalign: 1, x: -100, })
-const grass = game.sprite({ image: "img/grass.png", yalign: 3/4, y: -64 * 1/4, w: 64, h: 64 })
+const grass = game.sprite({ image: "img/cortana.gif", yalign: 3/4, y: -64 * 1/4, })
 const zig = game.sprite({
     xalign: 1, yalign: 1,
     x: -8, y: -2,
@@ -96,8 +96,6 @@ more("\nOne day I'll get to put my money\nwhere my mouth is.")
 rest()
 composite.images.eyes = "img/dude/eyes_up.png"
 setMouth("img/dude/mouth_grin.png")
-me.say("I'm starting to think ")
-game.wait(0.2)
 more("visual novels can be a\nbetter outlet for my rants.", {color: "#ff0"})
 rest()
 setMouth("img/dude/mouth_closed.png")
