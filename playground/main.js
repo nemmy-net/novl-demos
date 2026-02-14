@@ -1,4 +1,4 @@
-import { game, say, more, add } from "./api.d.ts";
+import { game, say, more, add, wait, pause } from "./api.d.ts";
 
 //game.bgm("sound/dos1.mp3")
 function wave(frame) {
@@ -13,16 +13,6 @@ function wave(frame) {
 function shake(frame) {
     frame.x += Math.random() * 4 - 2
     frame.y += Math.random() * 4 - 2
-}
-
-function bobLeft(frame) {
-    frame.x -= Math.cos(frame.time * 1.5) * 8 + 8
-}
-
-function rest() {
-    add("  >", { render: bobLeft, color: "#0a0" })
-    game.wait()
-    game.dialog.removeLast(3)
 }
 
 // Start new dialog with *
@@ -59,10 +49,11 @@ function setMouth(image) {
     composite.images.mouth = image
 }
 
-const me = game.character("Grass", { image: composite, yalign: 1, x: -100, })
-const grass = game.sprite({ image: "img/cortana.gif", yalign: 3/4, y: -64 * 1/4, })
+const gradient = game.sprite({ image: "img/gradient.png", w: 640, h: 640, color: [0,0,0] })
+
 const zig = game.sprite({
-    xalign: 1, yalign: 1,
+    xalign: 0.5, yalign: 0.5,
+    color: [1,1,1],
     x: -8, y: -2,
     w: 67, h: 23,
     images: {
@@ -72,12 +63,20 @@ const zig = game.sprite({
     xscale: 1,
     yscale: 1,
 })
-//const bkg = game.sprite({w: 640, h: 640, color: [1,0,0]})
-//bkg.show()
-//game.tween(bkg.color, { "0": 1.0, "1": 1.0, "2": 1.0 }, 2)
-
 zig.show()
-game.tween(zig, { xscale: 4, yscale: 4 }, 5, 'outExpo')
+gradient.show("back")
+game.tween(gradient.color, [0.4, 0.4, 0.4], 3)
+game.tween(zig, { xscale: 4, yscale: 4 }, 3, 'outExpo')
+wait(3)
+
+game.tween(gradient.color, [0,0,0], 1)
+game.tween(zig.color, [0,0,0], 1)
+wait(1)
+zig.hide()
+gradient.hide()
+
+const me = game.character("Grass", { image: composite, yalign: 1, x: -100, })
+const grass = game.sprite({ image: "img/cortana.gif", yalign: 3/4, y: -64 * 1/4, })
 
 game.event("say", function() {
     if (game.getSpeaker() == me)
@@ -89,32 +88,34 @@ game.event("say", function() {
 me.show()
 grass.show("front")
 // TODO: Automatic delays for punctuation and other user-defined patterns.
-rest()
+pause()
 me.say("I'm a huge yapper. I like to talk!", { render: wave })
-rest()
+pause()
 more("\nOne day I'll get to put my money\nwhere my mouth is.")
-rest()
+pause()
 composite.images.eyes = "img/dude/eyes_up.png"
+me.say("I like to think ")
+wait(0.2)
 setMouth("img/dude/mouth_grin.png")
 more("visual novels can be a\nbetter outlet for my rants.", {color: "#ff0"})
-rest()
+pause()
 setMouth("img/dude/mouth_closed.png")
 composite.images.eyes = "img/dude/eyes_evil.png"
 me.say("I still have lots of work to do first.")
-rest()
+pause()
 more("\n\n  Proper scaling for web browsers.", { color: "#f0f" })
-game.wait(0.4)
+wait(0.4)
 more("\nThumbnail support for the site.", { color: "#ef0" })
-game.wait(0.4)
+wait(0.4)
 more("\n  Load engines by version for compatibility.", { color: "#0f0" })
-game.wait(0.4)
+wait(0.4)
 more("\nA tween system for animations.", { color: "#0ef" })
-game.wait(0.4)
+wait(0.4)
 more("\nAnd it all has to be wrapped in a good API.", { color: "#f44" })
-rest()
+pause()
 
 me.say("Please fill out my simple survey")
-rest()
+pause()
 
 let answer = null
 while (answer == null) {
@@ -127,31 +128,31 @@ while (answer == null) {
     if (answer == null) {
         composite.images.eyes = "img/dude/eyes_evil.png"
         say("no!!!")
-        rest()
+        pause()
         composite.images.eyes = "img/dude/eyes.png"
     }
 }
 
 say(answer)
-rest()
+pause()
 
 me.hide()
 
 undertale()
 more("hallo!")
-rest()
+pause()
 
 undertale()
 more("what's\ngoin\n", {speedMultiply: 0.5})
-game.wait(0.1)
+wait(0.1)
 more("oooonnnnn???!!!??????????????????\n", textEffects)
-rest()
+pause()
 
 more("... ", { speedMultiply: 0.2 })
-game.wait(0.5)
+wait(0.5)
 more("Let's change the effects\n", {color: "#ff0"})
-game.wait(1)
+wait(1)
 // Cool trick: We can edit textEffects later whenever we wish
 textEffects.color = "#0f0"
 textEffects.render = shake
-game.wait()
+wait()

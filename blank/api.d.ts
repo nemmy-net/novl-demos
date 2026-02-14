@@ -102,6 +102,8 @@ export interface Game {
         speedMultiply(factor: number): void
         /** Display choices on screen and wait for an answer */
         choice(choices: ChoiceMap): any
+        /** Pause the dialog and wait for user input */
+        pause(): void
     },
     /** Background image */
     background(path: string): void
@@ -119,9 +121,14 @@ export interface Game {
     screenSize: { w: number, h: number }
     /** @returns The number of seconds given */
     tween(target: any, newValues: object, seconds: number, easing: ?string): number
+    /** Clear the scene. This removes any dialog, sprites, background, and music. */
+    clear(): void
 }
 
 export declare const game: Game
+export declare const wait: typeof game.wait
+export declare const pause: typeof game.dialog.pause
 export declare const say: typeof game.dialog.say
 export declare const more: typeof game.dialog.more
 export declare const add: typeof game.dialog.add
+export declare const wait: typeof game.wait

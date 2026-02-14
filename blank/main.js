@@ -1,0 +1,1 @@
+import { game, say, more, add, wait } from "./api.d.ts";
