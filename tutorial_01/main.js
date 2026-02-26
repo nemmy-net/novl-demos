@@ -7,31 +7,31 @@ function basicTutorial() {
     say("This is the most basic game. \nIt puts words on the screen.")
     pause()
 
-    say("You can color the text.", { color: "#ff0000" })
+    say("<>You can color the text.</>", { color: "#f00" })
     more("and add more text...")
     more("\nbut be mindful of the spacing!")
-    wait(0.2) // This waits for 0.2 seconds
+    pause()
 
-    more("\n\nYou can use \\n to write on a new line.")
+    more("\n\nYou can type <>\\n</> to write on a new line.", {color: "#ff0"})
     pause()
 
     game.dialog.sound("sound/blip.wav")
-    say("You can choose a typing sound with")
-    more("\ngame.dialog.sound()", { color: "#ff0" })
+    
+    say("You can choose a typing sound with\n<>game.dialog.sound()</>", { color: "#ff0" })
+    pause()
+    more("\nTurn up your volume to hear it!")
     pause()
 
-    say("Set a background with")
-    more("\ngame.background()", { color: "#ff0" })
+    say("Set a background with\n<>game.background()</>", { color: "#ff0" })
     pause()
     game.background("img/mit.png")
     pause()
 
-    say("Volume warning:", {color: "#f00"})
-    more("\nSet music with game.bgm()")
+    say("<>Volume warning:</>\nSet music with <>game.bgm()</>", { color: "#f00" }, { color:"#ff0" })
     pause()
 
     game.bgm("sound/dos1.mp3")
-    more("\nStop music with game.bgm() again")
+    more("\nStop music with <>game.bgm()</> again", { color: "#ff0" })
     pause()
 
     game.bgm()
@@ -45,10 +45,7 @@ function spriteTutorial() {
     let dude = game.sprite({ image: "img/dude.png" })
     dude.show()
 
-    say("Create sprites with")
-    more("\nlet x = game.sprite()", { color: "#ff0" })
-    more(" and")
-    more("\nx.show()", { color: "#ff0" })
+    say("Create sprites with\n<>let x = game.sprite()</> and <>x.show()</>", { color: "#ff0" })
     pause()
 
     say("Let's move the sprite.")
@@ -103,16 +100,18 @@ function choiceTutorial() {
     pause()
     more("That is a shortcut for game.dialog.say()\n")
     pause()
-    more("game.dialog.choice() ", {color: "#ff0" })
-    more("will show choices.\n")
+    more("<>game.dialog.choice()</> will show choices.\n", {color: "#ff0" })
     pause()
     more("It has no shortcut (but you can make one).")
 
     game.dialog.choice({ "Okay": "" })
 
-    say("You can write\n")
-    more('x = game.dialog.choice({"Fruit #1": "apple"})\n', { color: "#ff0" })
-    more('to show "Fruit #1" on screen.\n')
+    say(
+        'You can write\n' +
+        '<>x = game.dialog.choice({"Fruit #1": "apple"})</>\n' +
+        'to show "Fruit #1" on screen.\n',
+        { color: "#ff0" }
+    )
     pause()
     more('When clicked, x will be "apple"')
     pause()
@@ -125,7 +124,7 @@ function choiceTutorial() {
     say("You chose " + x)
     pause()
 
-    say("You can learn about JavaScript loops to\ncreate a chapter select or other featires.\n")
+    say("You can learn about JavaScript loops to\ncreate a chapter select or other features.\n")
     pause()
     
     say("Have fun!")
@@ -135,7 +134,7 @@ function choiceTutorial() {
 // Run the chapter select forever
 while (true) {
     say("Select a chapter")
-    add("\nPress R to reload\nHold SHIFT to speed up dialog", {color: "#888"})
+    add("<>\nPress R to reload\nHold SHIFT to speed up dialog</>", {color: "#888"})
     let choice = game.dialog.choice({
         "Basics": basicTutorial,
         "Sprites": spriteTutorial,

@@ -67,7 +67,8 @@ export interface Sprite extends SpriteProperties {
 export type TextRender = (frame: Frame, letter: Letter) => void
 
 export interface TextEffects {
-    speedMultiply?: number
+    /** Text characters per second */
+    cps?: number
     color?: Color
     render?: TextRender
 }
