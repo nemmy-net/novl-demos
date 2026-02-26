@@ -82,7 +82,7 @@ export interface Character extends Sprite {
     say(text: string, options?: TextEffects): void
 }
 
-export type EventName = "say"
+export type EventName = "say" | "frame"
 
 export interface Game {
     dialog: {
@@ -104,6 +104,15 @@ export interface Game {
         choice(choices: ChoiceMap): any
         /** Pause the dialog and wait for user input */
         pause(): void
+
+        textBox: {
+            visible: boolean,
+            x: number, y: number, w: number, h: number
+        }
+        nameBox: {
+            visible: boolean,
+            x: number, y: number, w: number, h: number
+        }
     },
     /** Background image */
     background(path: string): void
@@ -123,6 +132,8 @@ export interface Game {
     tween(target: any, newValues: object, seconds: number, easing: ?string): number
     /** Clear the scene. This removes any dialog, sprites, background, and music. */
     clear(): void
+    /** Number of seconds since the game started */
+    time: number
 }
 
 export declare const game: Game

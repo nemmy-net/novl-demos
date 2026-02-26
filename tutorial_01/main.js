@@ -57,8 +57,6 @@ function spriteTutorial() {
     dude.xalign = 1
     more("\nxalign will move a sprite to the right.")
     pause()
-    more("\nResize the window. It will stick to the right.")
-    pause()
 
     say("This is what happens when xalign\ngoes from 0 to 1.")
     dude.xalign = 0
@@ -98,6 +96,42 @@ function spriteTutorial() {
     pause()
 }
 
+function choiceTutorial() {
+    game.background("img/mit.png")
+    
+    say("You know how to use say()\n")
+    pause()
+    more("That is a shortcut for game.dialog.say()\n")
+    pause()
+    more("game.dialog.choice() ", {color: "#ff0" })
+    more("will show choices.\n")
+    pause()
+    more("It has no shortcut (but you can make one).")
+
+    game.dialog.choice({ "Okay": "" })
+
+    say("You can write\n")
+    more('x = game.dialog.choice({"Fruit #1": "apple"})\n', { color: "#ff0" })
+    more('to show "Fruit #1" on screen.\n')
+    pause()
+    more('When clicked, x will be "apple"')
+    pause()
+
+    say("Try it:")
+    x = game.dialog.choice({
+        "Fruit #1": "apple",
+        "Fruit #2": "lemon",
+    })
+    say("You chose " + x)
+    pause()
+
+    say("You can learn about JavaScript loops to\ncreate a chapter select or other featires.\n")
+    pause()
+    
+    say("Have fun!")
+    pause()
+}
+
 // Run the chapter select forever
 while (true) {
     say("Select a chapter")
@@ -105,6 +139,7 @@ while (true) {
     let choice = game.dialog.choice({
         "Basics": basicTutorial,
         "Sprites": spriteTutorial,
+        "Choices": choiceTutorial,
     })
     choice()
     game.clear() // Reset the screen back to normal

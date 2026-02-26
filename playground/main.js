@@ -1,6 +1,5 @@
 import { game, say, more, add, wait, pause } from "./api.d.ts";
 
-//game.bgm("sound/dos1.mp3")
 function wave(frame) {
     frame.color = game.rgba(
         Math.sin(frame.time * 3 + frame.x/50 + frame.cy) / 2 + 0.5,
@@ -51,6 +50,8 @@ function setMouth(image) {
 
 const gradient = game.sprite({ image: "img/gradient.png", w: 640, h: 640, color: [0,0,0] })
 
+game.dialog.textBox.visible = false
+
 const zig = game.sprite({
     xalign: 0.5, yalign: 0.5,
     color: [1,1,1],
@@ -67,16 +68,22 @@ zig.show()
 gradient.show("back")
 game.tween(gradient.color, [0.4, 0.4, 0.4], 3)
 game.tween(zig, { xscale: 4, yscale: 4 }, 3, 'outExpo')
-wait(3)
+//wait(3)
 
 game.tween(gradient.color, [0,0,0], 1)
 game.tween(zig.color, [0,0,0], 1)
-wait(1)
+//wait(1)
 zig.hide()
 gradient.hide()
 
+// Make the textbox larger
+game.dialog.textBox.visible = true
+game.dialog.nameBox.y -= 25
+game.dialog.textBox.y -= 25
+game.dialog.textBox.h += 25
+
 const me = game.character("Grass", { image: composite, yalign: 1, x: -100, })
-const grass = game.sprite({ image: "img/cortana.gif", yalign: 3/4, y: -64 * 1/4, })
+const grass = game.sprite({ image: "img/cortana.gif", yalign: 3/4, y: -64 * 1/4, xalign: 1 })
 
 game.event("say", function() {
     if (game.getSpeaker() == me)
