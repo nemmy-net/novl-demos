@@ -1,5 +1,10 @@
 import { game, say, more, add, wait, pause } from "./api.d.ts";
 
+game.pixelate = true
+console.log("log")
+console.warn("warning")
+console.error("error")
+
 function wave(frame) {
     frame.color = game.rgba(
         Math.sin(frame.time * 3 + frame.x/50 + frame.cy) / 2 + 0.5,

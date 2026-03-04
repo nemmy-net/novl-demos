@@ -95,7 +95,7 @@ export interface Game {
         add(text: string, options?: TextEffects): void
         /** Remove the last N characters */
         removeLast(n: number): void
-        /** Erase all text */
+        /** Erase all text and remove the current speaker */
         clear(): void
         /** Writing sound */
         sound(path: string): void
@@ -133,6 +133,8 @@ export interface Game {
     tween(target: any, newValues: object, seconds: number, easing: ?string): number
     /** Clear the scene. This removes any dialog, sprites, background, and music. */
     clear(): void
+    /** Load all textures with pixelation by default */
+    pixelate: bool
     /** Number of seconds since the game started */
     time: number
 }

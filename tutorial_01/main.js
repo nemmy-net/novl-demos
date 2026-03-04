@@ -117,7 +117,7 @@ function choiceTutorial() {
     pause()
 
     say("Try it:")
-    x = game.dialog.choice({
+    let x = game.dialog.choice({
         "Fruit #1": "apple",
         "Fruit #2": "lemon",
     })
