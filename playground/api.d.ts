@@ -1,4 +1,4 @@
-// This file provides documentation and auto-complete in IDEs like VSCode.
+// This file provides documentation and auto-complete for IDEs like VSCode.
 // Editing this file has no effect.
 
 export type Color = string | number[]
@@ -88,11 +88,11 @@ export type EventName = "say" | "frame"
 export interface Game {
     dialog: {
         /** Write new text and replace any old text */
-        say(text: string, options?: TextEffects): void
+        say(text: string, ...fx: TextEffects[]): void
         /** Write more text next to the old text */
-        more(text: string, options?: TextEffects): void
+        more(text: string, ...fx: TextEffects[]): void
         /** Add text. It is written immediately and silently. */
-        add(text: string, options?: TextEffects): void
+        add(text: string, ...fx: TextEffects[]): void
         /** Remove the last N characters */
         removeLast(n: number): void
         /** Erase all text and remove the current speaker */
@@ -130,11 +130,11 @@ export interface Game {
     getSpeaker(): Character|null
     screenSize: { w: number, h: number }
     /** @returns The number of seconds given */
-    tween(target: any, newValues: object, seconds: number, easing: ?string): number
+    tween(target: any, newValues: object, seconds: number, easing?: string): number
     /** Clear the scene. This removes any dialog, sprites, background, and music. */
     clear(): void
     /** Load all textures with pixelation by default */
-    pixelate: bool
+    pixelate: boolean
     /** Number of seconds since the game started */
     time: number
 }
@@ -145,4 +145,3 @@ export declare const pause: typeof game.dialog.pause
 export declare const say: typeof game.dialog.say
 export declare const more: typeof game.dialog.more
 export declare const add: typeof game.dialog.add
-export declare const wait: typeof game.wait
