@@ -1,4 +1,4 @@
-// This file provides documentation and auto-complete for IDEs like VSCode.
+// This optional file provides documentation and auto-complete for IDEs like VSCode.
 // Editing this file has no effect.
 
 export type Color = string | number[]
@@ -10,10 +10,27 @@ export interface Frame {
     deltaTime: number
 }
 
-export interface Letter {
+export interface LetterFrameData {
     x: number
     y: number
     color: Color
+}
+
+export interface SoundOptions {
+    volume?: number
+    loop?: boolean
+}
+
+export interface Sound {
+    id: number
+    /**
+     * Get or set the volume
+     * @returns The new volume
+     */
+    volume(x?: number): number
+    pause(): void
+    resume(): void
+    replay(): void
 }
 
 /**
@@ -37,6 +54,8 @@ export interface SpriteProperties {
     frames?: SpriteSource[],
     /** Animation frames per second. (12 by default) */
     fps?: number,
+    /** Time when the animation started playing. This is controlled by the game engine and it will be set/unset. */
+    time?: number,
 
     color?: Color
     x?: number
@@ -64,7 +83,7 @@ export interface Sprite extends SpriteProperties {
     hide(): void
 }
 
-export type TextRender = (frame: Frame, letter: Letter) => void
+export type TextRender = (frame: LetterFrameData) => void
 
 export interface TextEffects {
     /** Text characters per second */
@@ -80,7 +99,17 @@ export interface ChoiceMap {
 export interface Character extends Sprite {
     name?: string
     /** Behaves like `game.dialog.say` and shows the character's name */
-    say(text: string, options?: TextEffects): void
+    say(text: string, ...fx: TextEffects[]): void
+    /** Set the image or animation that displays while the character is talking.
+     * You can provide FPS as the last argument:
+     * ```
+     *  blab("img1.png", "img2.png", 6)
+     * ```
+     * FPS is optional and the default is 6.
+     */
+    blab(...frames: (string | number)[]): void
+    blab(frames: string[], fps?: number): void
+    blab(image?: string): void
 }
 
 export type EventName = "say" | "frame"
@@ -117,22 +146,25 @@ export interface Game {
     },
     /** Background image */
     background(path: string): void
-    /** Background music */
-    bgm(path: string): void
+    /** Set the background music. It behaves the same as a looping `Sound` object. */
+    bgm(path?: string, volume?: number): void
     /** Temporary hack to make colors, because arrays aren't supported yet :) */
     rgba(r: number, g: number, b: number, a?: number): Color
     /** Wait for a number of seconds. If no seconds are given then wait for any user input. */
     wait(seconds?: number): void
     character(name: string, options?: SpriteProperties): Character
     sprite(options?: SpriteProperties): Sprite
-    event(name: EventName, callback: () => void): void
+    event(name: "say", callback: () => void): void
+    event(name: "frame", callback: (frame: Frame) => void): void
     /** The character currently speaking. This is null while the character isn't writing or playing a voice track. */
-    getSpeaker(): Character|null
+    getSpeaker(): Character | null
     screenSize: { w: number, h: number }
     /** @returns The number of seconds given */
     tween(target: any, newValues: object, seconds: number, easing?: string): number
     /** Clear the scene. This removes any dialog, sprites, background, and music. */
     clear(): void
+    sound(path: string, volume?: number): Sound
+    sound(path: string, options: SoundOptions): Sound
     /** Load all textures with pixelation by default */
     pixelate: boolean
     /** Number of seconds since the game started */

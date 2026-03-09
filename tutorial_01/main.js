@@ -30,7 +30,8 @@ function basicTutorial() {
     say("<>Volume warning:</>\nSet music with <>game.bgm()</>", { color: "#f00" }, { color:"#ff0" })
     pause()
 
-    game.bgm("sound/dos1.mp3")
+    // 0.5 sets it at half volume, but the volume setting is optional. The default is 1.0
+    game.bgm("sound/dos1.mp3", 0.5)
     more("\nStop music with <>game.bgm()</> again", { color: "#ff0" })
     pause()
 
@@ -89,7 +90,35 @@ function spriteTutorial() {
     game.tween(grass, { xalign: 0.7 }, 2)
     game.tween(dude, { xalign: 0.3, y: 0 }, 2)
     wait(1)
-    more('\n"front" does what you\'d expect\n.hide() will hide it.', {color: "#888"})
+    more('<>\n"front" does what you\'d expect\n.hide() will hide it.</>', {color: "#888"})
+    pause()
+}
+
+function characterTutorial() {
+    game.background("img/mit.png")
+
+    cade = game.character("Cade", { image: "img/dude.png" })
+    cade.show()
+    cade.say("My name is Cade, I'm a character.")
+    pause()
+    more("\nA character is a sprite with more abilities.")
+    pause()
+    more("\nDon't forget to use <>.show()</> and <>.say()</>", {color: "#ff0"})
+    pause()
+
+    cade.say("My name appears on screen while talking.")
+    pause()
+    cade.blab("img/dude2.png", "img/dude.png") // This plays at 6 FPS by default
+    // You can play it at 12 FPS:
+    //   cade.blab("img/dude2.png", "img/dude.png", 12)
+    // You can also use a list of frames:
+    //   frames = ["img/dude2.png", "img/dude.png"]
+    //   cade.blab(frames, 12) 
+    // Or use a GIF or a still image:
+    //   cade.blab("img/dude2.png")
+    more("\nUse <>.blab()</> to create a talking animation\nfrom 2 images.", {color: "#ff0"})
+    pause()
+    more("\nThat's all you need to know, really.")
     pause()
 }
 
@@ -138,6 +167,7 @@ while (true) {
     let choice = game.dialog.choice({
         "Basics": basicTutorial,
         "Sprites": spriteTutorial,
+        "Characters": characterTutorial,
         "Choices": choiceTutorial,
     })
     choice()
