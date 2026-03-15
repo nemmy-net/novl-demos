@@ -87,7 +87,7 @@ game.dialog.nameBox.y -= 25
 game.dialog.textBox.y -= 25
 game.dialog.textBox.h += 25
 
-const me = game.character("Grass", { image: composite, yalign: 1, x: -100, })
+const me = game.character("Cade", { image: composite, yalign: 1, x: -100, })
 const grass = game.sprite({ image: "img/cortana.gif", yalign: 3/4, y: -64 * 1/4, xalign: 1 })
 
 game.event("say", function() {
@@ -101,37 +101,26 @@ me.show()
 grass.show("front")
 // TODO: Automatic delays for punctuation and other user-defined patterns.
 pause()
-me.say("I'm a huge yapper. <>I like to talk!</>", { render: wave })
+me.say("This is the engine playground.\n<>It's got cool text effects!</>", { render: wave })
 pause()
-more("\nOne day I'll get to put my money\nwhere my mouth is.")
-pause()
-composite.images.eyes = "img/dude/eyes_up.png"
-me.say("I like to think ")
-wait(0.2)
-setMouth("img/dude/mouth_grin.png")
-more("<>visual novels</> can be a\nbetter outlet for my <>rants</>.", {color: "#ff0"}, {color: "#f00"})
-pause()
-setMouth("img/dude/mouth_closed.png")
-composite.images.eyes = "img/dude/eyes_evil.png"
-me.say("I still have lots of work to do first.")
+me.say("Here are some of the tasks I need to finish:")
 pause()
 more("<>\n\n  Proper scaling for web browsers.</>", { color: "#f0f" })
 wait(0.4)
 more("<>\nThumbnail support for the site.</>", { color: "#ef0" })
 wait(0.4)
-more("<>\n  Load engines by version for compatibility.</>", { color: "#0f0" })
-wait(0.4)
-more("<>\nA tween system for animations.</>", { color: "#0ef" })
+more("<>\n  Multi-version loader for compatibility.</>", { color: "#0f0" })
 wait(0.4)
 more("\nAnd it all has to be wrapped in a good API.")
 pause()
 
+composite.images.eyes = "img/dude/eyes.png"
 me.say("Please fill out my simple survey")
 pause()
 
 let answer = null
 while (answer == null) {
-    say("minion or da bob fo today")
+    me.say("minion or da bob fo today")
     answer = game.dialog.choice({
         "Minion plz": "minion!!!",
         "Bob! bob!": "bob???",
@@ -139,13 +128,13 @@ while (answer == null) {
     })
     if (answer == null) {
         composite.images.eyes = "img/dude/eyes_evil.png"
-        say("no!!!")
+        me.say("no!!!")
         pause()
         composite.images.eyes = "img/dude/eyes.png"
     }
 }
 
-say(answer)
+me.say(answer)
 pause()
 
 me.hide()
@@ -158,9 +147,9 @@ undertale()
 more("what's\ngoin\n<>oooonnnnn???!!!??????????????????\n</>", textEffects)
 pause()
 
-more("... ", { cps: 3 })
+more("<>...</> ", { cps: 3 })
 wait(0.5)
-more("Let's change the effects\n", {color: "#ff0"})
+more("<>Let's change the effects</>\n", {color: "#ff0"})
 wait(1)
 // Cool trick: We can edit textEffects later whenever we wish
 textEffects.color = "#0f0"

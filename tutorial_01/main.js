@@ -97,7 +97,7 @@ function spriteTutorial() {
 function characterTutorial() {
     game.background("img/mit.png")
 
-    cade = game.character("Cade", { image: "img/dude.png" })
+    cade = game.character("Cade", { image: "img/dude.png", xalign: 1 })
     cade.show()
     cade.say("My name is Cade, I'm a character.")
     pause()
@@ -113,7 +113,7 @@ function characterTutorial() {
     //   cade.blab("img/dude2.png", "img/dude.png", 12)
     // You can also use a list of frames:
     //   frames = ["img/dude2.png", "img/dude.png"]
-    //   cade.blab(frames, 12) 
+    //   cade.blab(frames, 12)
     // Or use a GIF or a still image:
     //   cade.blab("img/dude2.png")
     more("\nUse <>.blab()</> to create a talking animation\nfrom 2 images.", {color: "#ff0"})
