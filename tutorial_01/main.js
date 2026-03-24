@@ -163,7 +163,7 @@ function choiceTutorial() {
 // Run the chapter select forever
 while (true) {
     say("Select a chapter")
-    add("<>\nPress R to reload\nHold SHIFT to speed up dialog</>", {color: "#888"})
+    add("<>\nPress R to reload\nPress or hold SHIFT to skip dialog</>", {color: "#888"})
     let choice = game.dialog.choice({
         "Basics": basicTutorial,
         "Sprites": spriteTutorial,

@@ -33,6 +33,14 @@ export interface Sound {
     replay(): void
 }
 
+export interface Texture {
+    path: string
+    w: number
+    h: number
+}
+
+export type TextureSource = Texture | string
+
 /**
  * One or more images wrapped into an object with parameters for color, position, and more.
  * 
@@ -73,7 +81,7 @@ export interface SpriteProperties {
 }
 
 /** This the actual image used in a sprite. This can be an image path or another sprite. */
-export type SpriteSource = string | SpriteProperties
+export type SpriteSource = TextureSource | SpriteProperties
 
 export type Layer = "back" | "front"
 
@@ -143,9 +151,11 @@ export interface Game {
             visible: boolean,
             x: number, y: number, w: number, h: number
         }
+        /** Default text color */
+        color: Color,
     },
     /** Background image */
-    background(path: string): void
+    background(path: TextureSource): void
     /** Set the background music. It behaves the same as a looping `Sound` object. */
     bgm(path?: string, volume?: number): void
     /** Temporary hack to make colors, because arrays aren't supported yet :) */
@@ -165,6 +175,7 @@ export interface Game {
     clear(): void
     sound(path: string, volume?: number): Sound
     sound(path: string, options: SoundOptions): Sound
+    texture(path: string, pixelate?: boolean): Texture
     /** Load all textures with pixelation by default */
     pixelate: boolean
     /** Number of seconds since the game started */

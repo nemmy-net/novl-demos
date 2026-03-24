@@ -28,7 +28,7 @@ function undertale() {
 const textEffects = {render: wave}
 
 game.background("img/mit.png")
-game.dialog.sound("sound/blip.wav")
+game.dialog.sound("sound/squeek.wav")
 
 let mouthClosed = "img/dude/mouth_closed.png"
 const mouthYapping = {
