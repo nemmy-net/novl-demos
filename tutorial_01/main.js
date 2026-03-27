@@ -24,7 +24,7 @@ function basicTutorial() {
 
     say("Set a background with\n<>game.background()</>", { color: "#ff0" })
     pause()
-    game.background("img/mit.png")
+    game.background("img/mit.jpg")
     pause()
 
     say("<>Volume warning:</>\nSet music with <>game.bgm()</>", { color: "#f00" }, { color:"#ff0" })
@@ -41,7 +41,7 @@ function basicTutorial() {
 }
 
 function spriteTutorial() {
-    game.background("img/mit.png")
+    game.background("img/mit.jpg")
     
     let dude = game.sprite({ image: "img/dude.png" })
     dude.show()
@@ -95,7 +95,7 @@ function spriteTutorial() {
 }
 
 function characterTutorial() {
-    game.background("img/mit.png")
+    game.background("img/mit.jpg")
 
     cade = game.character("Cade", { image: "img/dude.png", xalign: 1 })
     cade.show()
@@ -123,7 +123,7 @@ function characterTutorial() {
 }
 
 function choiceTutorial() {
-    game.background("img/mit.png")
+    game.background("img/mit.jpg")
     
     say("You know how to use say()\n")
     pause()
