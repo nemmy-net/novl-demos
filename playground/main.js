@@ -28,7 +28,7 @@ function undertale() {
 const textEffects = {render: wave}
 
 game.background("img/mit.jpg")
-game.dialog.sound("sound/squeek.wav")
+game.dialog.voice("sound/squeek.wav")
 
 let mouthClosed = "img/dude/mouth_closed.png"
 const mouthYapping = {
@@ -72,7 +72,7 @@ const zig = game.sprite({
 zig.show()
 gradient.show("back")
 game.tween(gradient.color, [0.4, 0.4, 0.4], 3)
-game.tween(zig, { xscale: 4, yscale: 4 }, 3, 'outExpo')
+game.tween(zig, { xscale: 4, yscale: 4, x: -100, y: -30 }, 3, 'outExpo')
 wait(3)
 
 game.tween(gradient.color, [0,0,0], 1)

@@ -15,9 +15,9 @@ function basicTutorial() {
     more("\n\nYou can type <>\\n</> to write on a new line.", {color: "#ff0"})
     pause()
 
-    game.dialog.sound("sound/blip.wav")
+    game.dialog.voice("sound/blip.wav")
     
-    say("You can choose a typing sound with\n<>game.dialog.sound()</>", { color: "#ff0" })
+    say("You can choose a typing sound with\n<>game.dialog.voice()</>", { color: "#ff0" })
     pause()
     more("\nTurn up your volume to hear it!")
     pause()
@@ -97,7 +97,7 @@ function spriteTutorial() {
 function characterTutorial() {
     game.background("img/mit.jpg")
 
-    cade = game.character("Cade", { image: "img/dude.png", xalign: 1 })
+    cade = game.character("Cade", { image: "img/dude.png", xalign: 1, voice: "sound/blip.wav" })
     cade.show()
     cade.say("My name is Cade, I'm a character.")
     pause()

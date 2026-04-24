@@ -12,12 +12,13 @@ game.texture("img/neutral.png")
 game.texture("img/neutral_talk.png")
 game.texture("img/smile.png")
 game.texture("img/smile_talk.png")
+game.texture("img/happy.png")
+game.texture("img/happy_talk.png")
 game.texture("img/awesome.png")
 game.texture("img/awesome_talk.png")
 const orc = game.sound("sound/orc.wav")
-game.dialog.sound("sound/huh.wav")
 
-const me = game.character("", {image: "img/smile.png"})
+const me = game.character("", {image: "img/smile.png", voice: "sound/huh.wav"})
 function emote(name) {
     me.blab() // This is a workaround to clear the active blab, otherwise the next call to blab() will trample our changes.
     me.image = "img/" + name + ".png"
@@ -34,8 +35,7 @@ emote("happy")
 me.say("I fixed that pesky xalign\nissue for you.<> </>It's in the\nlatest version now.", {cps: 2})
 pause()
 emote("neutral")
-more("\n\nYou'll have to re-download\nthe editor.<> </>I need to make an\nauto-updater soon.", {cps: 2})
+more("\n\nYou'll have to re-download\nthe editor...<> </>I need to make an\nauto-updater.", {cps: 2})
 wait(1)
 orc.replay()
 add("\n\nhmm.")
-

@@ -34,6 +34,20 @@ export interface Sound {
     replay(): void
 }
 
+/**
+ * Unlike Sound, a Voice can be played multiple times without interrupting itself and it's necessary for typing sounds in games.
+ * This behaves the same as using multiple copies of a Sound.
+ */
+export interface Voice {
+    id: number
+    /**
+     * Get or set the volume
+     * @returns The new volume
+     */
+    volume(x?: number): number
+    play(): void
+}
+
 export interface Texture {
     path: string
     w: number
@@ -81,6 +95,11 @@ export interface SpriteProperties {
     clip?: boolean
 }
 
+export interface CharacterOptions extends SpriteProperties {
+    /** The writing sound. This will be converted to a Voice if it isn't already */
+    voice?: string|Voice
+}
+
 /** This the actual image used in a sprite. This can be an image path or another sprite. */
 export type SpriteSource = TextureSource | SpriteProperties
 
@@ -107,6 +126,8 @@ export interface ChoiceMap {
 
 export interface Character extends Sprite {
     name?: string
+    /** The writing sound */
+    voice?: Voice|null
     /** Behaves like `game.dialog.say` and shows the character's name */
     say(text: string, ...fx: TextEffects[]): void
     /** Set the image or animation that displays while the character is talking.
@@ -135,8 +156,10 @@ export interface Game {
         removeLast(n: number): void
         /** Erase all text and remove the current speaker */
         clear(): void
-        /** Writing sound */
+        /** Set the default writing sound. WARNING: This will be removed in a future version. Use `voice` instead. */
         sound(path?: string): void
+        /** Set the default writing sound */
+        voice(source?: string|Voice, volume?: number): void
         /** Multiply the dialog speed */
         speedMultiply(factor: number): void
         /** Display choices on screen and wait for an answer */
@@ -163,7 +186,7 @@ export interface Game {
     rgba(r: number, g: number, b: number, a?: number): Color
     /** Wait for a number of seconds. If no seconds are given then wait for any user input. */
     wait(seconds?: number): void
-    character(name: string, options?: SpriteProperties): Character
+    character(name: string, options?: CharacterOptions): Character
     sprite(options?: SpriteProperties): Sprite
     event(name: "say", callback: () => void): void
     event(name: "frame", callback: (frame: Frame) => void): void
@@ -176,6 +199,7 @@ export interface Game {
     clear(): void
     sound(path: string, volume?: number): Sound
     sound(path: string, options: SoundOptions): Sound
+    voice(path: string, volume?: number): Voice|null
     texture(path: string, pixelate?: boolean): Texture
     /** Load all textures with pixelation by default */
     pixelate: boolean
