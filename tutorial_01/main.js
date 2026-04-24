@@ -15,7 +15,8 @@ function basicTutorial() {
     more("\n\nYou can type <>\\n</> to write on a new line.", {color: "#ff0"})
     pause()
 
-    game.dialog.voice("sound/blip.wav")
+    // A volume of 1 is the default (100%). You can write this without the 1. It's optional.
+    game.dialog.voice("sound/blip.wav", 1)
     
     say("You can choose a typing sound with\n<>game.dialog.voice()</>", { color: "#ff0" })
     pause()
@@ -97,6 +98,9 @@ function spriteTutorial() {
 function characterTutorial() {
     game.background("img/mit.jpg")
 
+    // If you want to control the volume of this voice, then write:
+    //   voice: game.voice("sound/blip.wav", 1)
+    // 1 is the default volume.
     cade = game.character("Cade", { image: "img/dude.png", xalign: 1, voice: "sound/blip.wav" })
     cade.show()
     cade.say("My name is Cade, I'm a character.")
