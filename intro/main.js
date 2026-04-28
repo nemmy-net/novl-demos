@@ -33,34 +33,36 @@ function emote(name) {
 
 me.show()
 emote("happy")
-let attempts = 0
 
 function start() {
     emote("smile")
     me.say("This is what a novl game\nlooks like.")
     pause()
-    // Heheh, this is broken. I had to add another style at the end. Awkwardddd....!
-    more(" It has <>cool</> <>text\neffects</><> (and such...)</>", {render: wave}, {color: "#ff0"}, {})
+    more(" It has <>cool</> <>text\neffects</> (and such...)", {render: wave}, {color: "#ff0"})
     pause()
     return showChoices
 }
 
 function showChoices() {
     game.dialog.clear()
-    if (attempts == 3) {
-        emote("happy")
-        me.say("Now go and make some games!")
-        console.log("scope 1")
-    } else {
-        console.log("scope 2")
-        return game.dialog.choice(options)
+    const choice = game.dialog.choice(options)
+    if (choice) return choice
+
+    emote("happy")
+    me.say("Now go and make some games!")
+    let i = 0
+    while (i < 20) {
+        pause()
+        i += 1
     }
-    // If there's no code here then execution somehow restarts from the beginnig of the game
-    //console.log("scope 3")
+    emote("neutral")
+    me.say("Stop clicking.")
+    wait(4)
+    // Hide that text from anyone who's fast-forwarding. Teehee
+    game.dialog.clear()
 }
 
 function tryIt() {
-    attempts += 1
     options["Can I try?"] = undefined
 
     emote("happy")
@@ -74,7 +76,6 @@ function tryIt() {
 }
 
 function how() {
-    attempts += 1
     options["How did you do that with the text?"] = undefined
     
     emote("smile")
@@ -90,7 +91,6 @@ function how() {
 }
 
 function hard() {
-    attempts += 1
     options["Is it hard?"] = undefined
 
     emote("happy")
@@ -113,5 +113,4 @@ options = {
 }
 
 nextBlock = start
-console.log("fallthrough")
 while (nextBlock = nextBlock()) {}
