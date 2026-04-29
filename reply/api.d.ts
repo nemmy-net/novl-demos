@@ -98,6 +98,8 @@ export interface SpriteProperties {
 export interface CharacterOptions extends SpriteProperties {
     /** The writing sound. This will be converted to a Voice if it isn't already */
     voice?: string|Voice
+    /** Default text color */
+    textColor?: Color
 }
 
 /** This the actual image used in a sprite. This can be an image path or another sprite. */
@@ -124,10 +126,8 @@ export interface ChoiceMap {
     [answer: string]: any
 }
 
-export interface Character extends Sprite {
+export interface Character extends CharacterOptions {
     name?: string
-    /** The writing sound */
-    voice?: Voice|null
     /** Behaves like `game.dialog.say` and shows the character's name */
     say(text: string, ...fx: TextEffects[]): void
     /** Set the image or animation that displays while the character is talking.
@@ -176,7 +176,7 @@ export interface Game {
             x: number, y: number, w: number, h: number
         }
         /** Default text color */
-        color: Color,
+        textColor: Color,
     },
     /** Background image */
     background(path: TextureSource): void

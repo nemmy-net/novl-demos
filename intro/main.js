@@ -91,15 +91,13 @@ function how() {
 }
 
 function hard() {
-    options["Is it hard?"] = undefined
+    options["Is it hard to use?"] = undefined
 
     emote("happy")
     me.say("A simple game only takes a\nfew clicks to make.")
     pause()
     emote("neutral")
-    more("\n\nIt does get complicated")
-    wait(0.3)
-    more(" if\nyou want to stylize things\nwithout code.")
+    more("\n\nIt does get complicated if\nyou want to stylize things\nwithout code.")
     pause()
     more("\n\nI'm working on it.")
     pause()
@@ -109,7 +107,7 @@ function hard() {
 options = {
     "Can I try?": tryIt,
     "How did you do that with the text?": how,
-    "Is it hard?": hard,
+    "Is it hard to use?": hard,
 }
 
 nextBlock = start
